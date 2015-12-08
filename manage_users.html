@@ -1,0 +1,235 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.demo">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Peak Mockup</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--
+    <script src="/static/js/vendor/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+    <script src="/static/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+    -->
+    <script src="/static/css/vendor/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+    <script src="/static/js/deploy/manage-users.js"></script>
+    <script src='/static/js/vendor/jquery.dataTables.min.js'></script>
+
+    <link href="/static/css/vendor/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/vendor/startbootstrap-sb-admin-2-1.0.8/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/static/css/vendor/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/vendor/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .dataTableStyle {
+            float: left;
+            margin-bottom: 20px;
+            width:100%;
+        }
+    </style>
+</head>
+
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="col-lg-2">
+        <div class="navbar-header">
+            <a class="" href="/">
+                <img src="http://www.peak-innovations.com/assets/images/logo1.png" width="200" height="49" alt="">
+            </a>
+        </div>
+    </div>
+    <!-- /.navbar-header -->
+    <!-- .navbar-top-links -->
+    <div class="col-lg-8">
+        <ul class="nav navbar-top-links">
+            <li><a href="/"><i class="fa fa-exclamation-triangle fa-fw"></i> Alarms</a>
+            <li><a href="/delivery_reports.html"><i class="fa fa-line-chart fa-fw"></i> Delivery Reports</a>
+            <li><a href="/manage_reports.html"><i class="fa fa-table fa-fw"></i> Manage Deleivery Reports</a>
+            <li><a href="/manage_groups.html"><i class="fa fa-users fa-fw"></i> Manage Groups</a>
+            <li><a href="/manage_users.html"><i class="fa fa-user fa-fw"></i> Manage Users</a>
+        </ul>
+    </div>
+    <div class="col-lg-2">
+        <ul class="nav navbar-top-links navbar-right">
+            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </ul>
+    </div>
+    <!-- /.navbar-top-links -->
+</nav>
+
+<div id="page-wrapper" style="min-height: 191px;">
+    <div class="row">
+        <div class="col-lg-10">
+            <h1 class="page-header">User Managment</h1>
+        </div>
+        <div class="col-lg-2">
+            <br/>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                <button type="button" class="btn btn-warning" autocomplete="off" id="notes" data-toggle="modal" data-target="#userModal" > 
+                    Add User
+                </button>
+                </li>
+            </ul>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div id="viewAllUsers" class="dataTableStyle"></div>
+    </div>
+    <!-- #userModal -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="Add User">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="btn-group col-lg-4" data-toggle="buttons">
+                            <h4 class="modal-title" id="distribution">Create New User</h4>
+                        </div>
+                        <div class="btn-group col-lg-8" data-toggle="buttons">
+                            <div class="pull-right">
+                                <button type="button" class="save btn btn-success">Save changes</button>
+                                <button type="button" class="save btn btn-warning">Save and add another</button>
+                                <button type="button" class="closer btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- form -->
+                    <form role="form">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="btn-group col-lg-6" data-toggle="buttons">
+                                    <label>Full Name</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="btn-group col-lg-6" data-toggle="buttons">
+                                    <label>Email Address</label>
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Password Confirm</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Group Assignment</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option>Custom Group #1</option>
+                                        <option>Custom Group #2</option>
+                                        <option>Custom Group #3</option>
+                                        <option>Custom Group #4</option>
+                                        <option>Custom Group #5</option>
+                                        <option>Custom Group #6</option>
+                                        <option>Custom Group #7</option>
+                                        <option>Custom Group #8</option>
+                                        <option>Custom Group #9</option>
+                                        <option>Custom Group #10</option>
+                                        <option>Custom Group #11</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#userModal -->
+
+
+    <!-- #userEditModal -->
+    <div class="modal fade" id="userEditModal" tabindex="-1" role="dialog" aria-labelledby="Add User">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="btn-group col-lg-4" data-toggle="buttons">
+                            <h4 class="modal-title" id="distribution">Create New User</h4>
+                        </div>
+                        <div class="btn-group col-lg-8" data-toggle="buttons">
+                            <div class="pull-right">
+                                <button type="button" class="save btn btn-success">Save changes</button>
+                                <button type="button" class="closer btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- form -->
+                    <form role="form">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="btn-group col-lg-6" data-toggle="buttons">
+                                    <label>Full Name</label>
+                                    <input class="form-control" value="Jim Sar">
+                                </div>
+                                <div class="btn-group col-lg-6" data-toggle="buttons">
+                                    <label>Email Address</label>
+                                    <input class="form-control" value="js@gmail.com">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" value="test1234">
+                                </div>
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Password Confirm</label>
+                                    <input type="password" class="form-control" value="">
+                                </div>
+                                <div class="btn-group col-lg-4" data-toggle="buttons">
+                                    <label>Group Assignment</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option>Custom Group #1</option>
+                                        <option>Custom Group #2</option>
+                                        <option selected="selected">Custom Group #3</option>
+                                        <option>Custom Group #4</option>
+                                        <option>Custom Group #5</option>
+                                        <option>Custom Group #6</option>
+                                        <option>Custom Group #7</option>
+                                        <option>Custom Group #8</option>
+                                        <option>Custom Group #9</option>
+                                        <option>Custom Group #10</option>
+                                        <option>Custom Group #11</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="closer btn btn-danger" data-dismiss="modal">Delete</button>
+                        </div>
+                    </form>
+                    <!-- /form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#userEditModal -->
+</div>
+</body>
+</html>
+
+
+
