@@ -53,9 +53,9 @@
         <!-- .navbar-top-links -->
         <div class="col-lg-8">
             <ul class="nav navbar-top-links">
-                <li><a href="index.html"><i class="fa fa-exclamation-triangle fa-fw"></i> Alerts</a>
-                <li><a href="delivery_reports.html"><i class="fa fa-line-chart fa-fw"></i> Delivery Reports</a>
-                <li><a href="manage_reports.html"><i class="fa fa-table fa-fw"></i> Manage Deleivery Reports</a>
+                <li><a href="index.html"><i class="fa fa-exclamation-triangle fa-fw"></i> Live Plant Information</a>
+                <li><a href="delivery_reports.html"><i class="fa fa-line-chart fa-fw"></i> Summary Reports</a>
+                <li><a href="manage_reports.html"><i class="fa fa-table fa-fw"></i> Manage Summary Reports</a>
                 <li><a href="manage_groups.html"><i class="fa fa-users fa-fw"></i> Manage Groups</a>
                 <li><a href="manage_users.html"><i class="fa fa-user fa-fw"></i> Manage Users</a>
             </ul>
@@ -101,7 +101,6 @@
                             <div class="col-lg-8" data-toggle="buttons">
                                 <div class="pull-right">
                                     <button type="button" class="save btn btn-success">Save</button>
-                                    <button type="button" class="save btn btn-warning">Save and add another</button>
                                     <button type="button" class="closer btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -112,9 +111,19 @@
                         <form role="form">
                             <div class="form-report">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <label>Report Name</label>
                                         <input class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-control radio pull-left">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked">
+                                            <label for="optionsRadios1"> Query Report Summary </label>
+                                        </div>
+                                        <div class="form-control radio pull-left">
+                                            <input type="radio" class="" name="optionsRadios" id="optionsRadios2" value="option2">
+                                            <label for="optionsRadios2"> Query Report Items </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <br/>
@@ -127,7 +136,63 @@
                                         <label>To End Date</label>
                                         <input type="text" class="form-control datepicker" data-provide="datepicker">
                                     </div>
-
+                                    <div class="col-lg-4">
+                                        <div class="form-control checkbox pull-left forRS">
+                                            <input type="checkbox" id="cb1">
+                                            <label for="cb1">Itemize Report</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="row" id="filterRow">
+                                    <div class="col-lg-1">
+                                        <label>When</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option class="forRI forCB">Item Name</option>
+                                            <option class="forRI forCB">Item amount</option>
+                                            <option>Delivery Report ID</option>
+                                            <option>Customer ID</option>
+                                            <option>Report Date</option>
+                                            <option>Location Name</option>
+                                            <option>Customer</option>
+                                            <option>Project</option>
+                                            <option>Address</option>
+                                            <option>Mix Name</option>
+                                            <option>Application</option>
+                                            <option>Truck Number</option>
+                                            <option>Invoice Number</option>
+                                            <option>Cubic Yards</option>
+                                            <option>Date Completed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <label>is</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option>equal to</option>
+                                            <option>more than</option>
+                                            <option>less than</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control newCondition">
+                                            <option></option>
+                                            <option value="and">and</option>
+                                            <option value="or">or</option>
+                                            <option></option>
+                                            <option value="remove">-</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <!--
                                 <br/>
@@ -165,8 +230,12 @@
                                 </div>
                                 -->
                             </div>
+                            <br/>
                         </form>
                         <!-- /form -->
+                        <div class="modal-footer">
+                            <button type="button" class="closer btn btn-normal">Test</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,11 +265,22 @@
                         <form role="form">
                             <div class="form-report">
                                 <div class="row">
-                                    <div class="col-lg-6" data-toggle="buttons">
+                                    <div class="col-lg-8" data-toggle="buttons">
                                         <label>Report Name</label>
                                         <input class="form-control" value="Custom Report #10">
                                     </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-control radio pull-left">
+                                            <input type="radio" name="optionsRadios" value="option1" checked="checked">
+                                            <label for="optionsRadios1"> Query Report Summary </label>
+                                        </div>
+                                        <div class="form-control radio pull-left">
+                                            <input type="radio" class="" name="optionsRadios" value="option2">
+                                            <label for="optionsRadios2"> Query Report Items </label>
+                                        </div>
+                                    </div>
                                 </div>
+ 
                                 <br/>
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -211,12 +291,70 @@
                                         <label>To End Date</label>
                                         <input type="text" class="form-control datepicker" data-provide="datepicker" value="11/24/2014">
                                     </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-control checkbox pull-left forRS">
+                                            <input type="checkbox" id="cb1">
+                                            <label for="cb1">Itemize Report</label>
+                                        </div>
+                                    </div>
                                 </div>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <label>When</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option>Item Name</option>
+                                            <option>Item amount</option>
+                                            <option>Delivery Report ID</option>
+                                            <option>Customer ID</option>
+                                            <option>Report Date</option>
+                                            <option>Location Name</option>
+                                            <option>Customer</option>
+                                            <option>Project</option>
+                                            <option>Address</option>
+                                            <option>Mix Name</option>
+                                            <option>Application</option>
+                                            <option>Truck Number</option>
+                                            <option>Invoice Number</option>
+                                            <option>Cubic Yards</option>
+                                            <option>Date Completed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <label>is</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option>equal to</option>
+                                            <option>more than</option>
+                                            <option>less than</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control newCondition">
+                                            <option></option>
+                                            <option value="and">and</option>
+                                            <option value="or">or</option>
+                                            <option></option>
+                                            <option value="remove">-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br/>
                                 <br/>
                                 <div class="row">
                                     <div class="col-lg-4" data-toggle="buttons">
                                         <label>Assign this report to groups</label>
-                                        <select class="form-control" id="selectReport">
+                                        <select class="form-control">
                                             <option></option>
                                             <option>Custom Report #2</option>
                                             <option>Custom Report #4</option>
@@ -236,6 +374,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br/>
                             <div class="modal-footer">
                                 <button type="button" class="closer btn btn-danger" data-dismiss="modal">Delete</button>
                             </div>

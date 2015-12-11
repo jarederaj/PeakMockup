@@ -1,5 +1,53 @@
 $(document).ready(function($){
     // START Report Specific JS
+
+    var or1 = $("#optionsRadios1");
+    var or2 = $("#optionsRadios2");
+    var cb1 = $("#cb1");
+    var nc = $(".newCondition");
+
+    or1.change(function() {
+        if($(this).is(":checked")) {
+            $(".forRI").hide();
+            $(".forRS").show();
+        }
+    });
+    or2.change(function() {
+        if($(this).is(":checked")) {
+            $(".forRS").hide();
+            $(".forRI").show();
+            $("#cb1").attr('checked', false);
+        }
+    });
+    cb1.change(function() {
+        if(!$(this).is(":checked")) {
+            $(".forCB").hide();
+        }
+        if($(this).is(":checked")) {
+            $(".forCB").show();
+        }
+    });
+
+    nc.on("change", function() {
+        var sb = $(this);
+        var val = sb.val();
+        var row = sb.closest("div.row");
+        var form = sb.closest("div.form-report");
+        switch(val) {
+            case "and":
+            case "or":
+                form.append(row.clone());
+                break;
+            case "delete":
+                row.remove();
+            case "":
+                row.next().remove();
+                break;
+        }
+    });
+
+
+
     var reportTable =  $("<table/>").addClass('display').attr({
         "cellpadding": "0",
         "cellspacing": "0",
@@ -39,7 +87,7 @@ $(document).ready(function($){
     reportTable.dataTable( {
         data: reportSet,
         columns: cols,
-        searching: false
+        searching: false,
     });
 
     $('#EditModal').on('shown.bs.modal', function() {

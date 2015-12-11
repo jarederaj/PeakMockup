@@ -100,10 +100,76 @@ $(document).ready(function($){
             "type": "date"
         }
     ];
+
+    function getGroupLabel(dateTime) {
+        var arr = dateTime.split("/");
+        if(typeof(arr[1]) !== "string") {
+            return dateTime;
+        }
+        var months = [ "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December" ];
+        return months[parseInt(arr[0]-1,10)] + " " + arr[2].split(" ")[0];
+    }
+
  
     reportTable.dataTable( {
         data: reportSet,
-        columns: cols
+        columns: cols,
+        drawCallback: function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+            window.all6 = 0;
+            window.col6 = 0;
+
+            window.col6dat = api.column(11).data();
+            api.column(settings.aaSorting[0][0], {page:'current'} ).data().each( function ( group, i ) {
+                var groupDate = getGroupLabel(group);
+                window.lastRow = i;
+                if ( last !== groupDate ) {
+                    if(last === null) {
+                        window.col6 = "";
+                    } else {
+                        col6 = parseFloat(col6).toFixed(2);
+                    }
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="2"><h4>'
+                                +groupDate+
+                            '</h4></td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td>' +
+                            '</td>' + 
+                            '<td ><strong class="bold pull-right">' +
+                             col6 +
+                            '</strong></td>' + 
+                        '</tr>'
+                    );
+                    col6 = 0;
+                    last = groupDate;
+                }
+                var c6 = parseFloat(col6dat[i].replace(/[^0-9-.]/g, ''));
+                if(c6 > 0) {
+                    col6 += c6;
+                    all6 += c6;
+                }
+            });
+        }
+
     });
 
     $('#selectReport').change(function() {
